@@ -1,4 +1,3 @@
-// import MidiWriter from '/midiwriter.js';
 const numCols = 32;
 const numRows = 6;
 const defaultChoices = ["step", "half", "random","step", "random", "step"];
@@ -6,10 +5,12 @@ const x = Array.from(Array(numCols).keys());
 let matrix = Array(numRows).fill().map(()=> Array(numCols).fill(0));
 let avoidOpts = [null,null,null,4,3,null];
 let syncOpts = Array(numRows).fill(null);
-// console.log(matrix);
+// const midiNoteMap = [36, 40, 47, 44, 46, 56];
+const midiNoteMap = ["C2", "E2", "B2", "G#2", "A#2", "G#3"];
 
 let frozen = new Array(numRows).fill(false);
-/* all elements of arr1 not in arr2, both arr1 and arr2 sorted*/
+
+//all elements of arr1 not in arr2, both arr1 and arr2 sorted
 function getComplement(arr1, arr2){
 	let end2 = arr2.length;
 	if(end2 == 0) return arr1;
@@ -35,7 +36,7 @@ function getCurTrack(row, audioBoxes){
 	var i = 0, indexStart = row * numCols;
 	var indexEnd = indexStart + numCols;
 	let arr = [], arr2 = Array(numCols).fill(0);
-	// console.log(indexStart, indexEnd, audioBoxes[indexStart]);
+
 	while(indexStart < indexEnd){
 		if($(audioBoxes[indexStart]).hasClass("active")) {
 			arr.push(i);
@@ -46,6 +47,7 @@ function getCurTrack(row, audioBoxes){
 	}
 	return [arr, arr2];
 }
+
 function getRandomSubarray(arr, size) {
 	if (size >= arr.length) return arr;
     var shuffled = arr.slice(0), i = arr.length, temp, index;
@@ -142,7 +144,7 @@ function getRandomTrack(row, audioBoxes, thres = 0.2, addon = false, avoid = nul
 function switchfromTrack(row,audioBoxes, thres = 0.2, addon = false, fromrow = 3){
 	[curTrack, curTrackB] = getCurTrack(fromrow, audioBoxes);
 	let curStepNum = curTrack.length, curNum = 0, index = 0;
-	upperLimit = Math.min(curStepNum/5+1, curStepNum);
+	upperLimit = Math.min(curStepNum/5+1, curStepNum, 6);
 	if(!addon){
 		clearTrack(row, audioBoxes);
 	}
@@ -159,6 +161,7 @@ function switchfromTrack(row,audioBoxes, thres = 0.2, addon = false, fromrow = 3
 	}
 
 }
+
 function switchbyStep(row,audioBoxes, stepNum = 2, addon = false, fromrow = 3){
 	[curTrack, curTrackB] = getCurTrack(fromrow, audioBoxes);
 	let index = 0;
@@ -174,7 +177,6 @@ function switchbyStep(row,audioBoxes, stepNum = 2, addon = false, fromrow = 3){
 		$(audioBoxes[fromStart + index]).removeClass("active");
 		$(audioBoxes[indexStart + index]).addClass("active");
 	}
-
 }
 
 function getRandombyStep(row, audioBoxes, stepNum, addon = false, avoid = null){
@@ -207,7 +209,6 @@ function getRandombyStep(row, audioBoxes, stepNum, addon = false, avoid = null){
 		matrix[row][newSteps[i]] = 1;
 		$(audioBoxes[indexStart+newSteps[i]]).addClass("active");
 	}
-	// console.log(newSteps);
 }
 
 function clearTrack(row, audioBoxes){
@@ -215,7 +216,6 @@ function clearTrack(row, audioBoxes){
 		for(let index = indexStart; index < indexStart + numCols; index++){
 			$(audioBoxes[index]).removeClass("active");
 		}
-	
 }
 
 function getFixedPtn(row, audioBoxes, step = 8, offset = 0, addon = false, avoid = null){
@@ -236,7 +236,6 @@ function getFixedPtn(row, audioBoxes, step = 8, offset = 0, addon = false, avoid
 		if(!avoidTrackB[index-indexStart]){
 			$(audioBoxes[index]).addClass("active");
 		}
-		
 		index += step;
 	}
 }
@@ -256,7 +255,6 @@ window.addEventListener('load',function(){
 	var stop = document.querySelector("#stop");
 	var genAllBtn = document.querySelector("#genall");
 	var clear = document.querySelector("#clear");
-
 	
 	var sliders = document.getElementsByClassName("slider");
 	var sliderVals = document.getElementsByClassName("sliderVal")
@@ -267,13 +265,14 @@ window.addEventListener('load',function(){
 	var moveLeft = document.getElementsByClassName("move_left");
 	var moveRight = document.getElementsByClassName("move_right");
 	var BPM = document.querySelector("#BPM");
+	var downloadContent = document.querySelector("#dlContent")
+	var downloadBtn = document.querySelector("#dlBtn")
 	var interval = 15000/BPM.value;
 
 	function getTrack(i){
 		if(!genTracksBtn[i].hasAttribute("disabled")){
 			var method = genChoiceSel[i].value;
 			var stepNum = sliders[i].value;
-			// console.log(i, "avoidTrack ", avoidOpts[i], "gen with", method);
 			let sync = syncOpts[i];
 			genTrack(i, audioBoxes, method, stepNum, $(addBtn).hasClass("addmode"), avoidOpts[i]);
 			if(sync){
@@ -317,7 +316,6 @@ window.addEventListener('load',function(){
 		});
  
 		$(labels[i]).change(function(){
-			// console.log($(this).val());
 			var url = null;
 			url = URL.createObjectURL(this.files[0]);
 			audioSources[i].src=url;
@@ -368,6 +366,7 @@ window.addEventListener('load',function(){
 	let timeControl = function(){
 		for (var i=0;i<numRows;i++){
 			if($(audioBoxes[index + numCols * i]).hasClass("active")){
+				// audioSources[i].load();
 				audioSources[i].currentTime = 0;
 				audioSources[i].play();
 			}
@@ -405,9 +404,6 @@ window.addEventListener('load',function(){
 	});
 	clear.addEventListener("click", function(){
 		$(audio2Boxes[(index+31)%32]).removeClass("active");
-		// index = 0;
-		// startFlag = false;
-		// controlfun = null;
 		reset();
 	});
 	function reset(){
@@ -417,12 +413,6 @@ window.addEventListener('load',function(){
 				clearTrack(i,audioBoxes);
 			}
 		}
-		// for(var i=0;i<audioBoxes.length;i++){
-		// 	$(audioBoxes[i]).removeClass("active");
-		// }
-		// for(var i=0;i<audio2Boxes.length;i++){
-		// 	$(audio2Boxes[i]).removeClass("active");
-		// }
 	}
 
 	genAllBtn.addEventListener("click",function(){
@@ -430,6 +420,12 @@ window.addEventListener('load',function(){
 			getTrack(i);
 		}
 	});
+	downloadBtn.addEventListener("click", function(){
+		let uri = get_midi(audioBoxes);
+		downloadContent.href = uri;
+		downloadContent.click();
+	})
+	
 });
 
 
@@ -438,13 +434,10 @@ function switch_left(row, freezed, audioBoxes){
 	var indexStart = row * 32;
 	var tmp = $(audioBoxes[row*numCols]).hasClass("active");
 	var cur, prev;
-	// console.log(tmp);
 	for(var i = 0; i < numCols-1; i++){
-		// matrix[row][i] = matrix[row][i+1];
 		next = $(audioBoxes[indexStart+i+1]).hasClass("active");
 		set_audiobox(audioBoxes[indexStart+i], next);
 	}
-	// matrix[row][numCols -1] = tmp;
 	set_audiobox(audioBoxes[indexStart+numCols -1], tmp);
 }
 
@@ -465,4 +458,33 @@ function set_audiobox(audiobox, box_on){
 	}else{
 		if(box_on) $(audiobox).addClass("active");
 	}	
+}
+
+function get_midi(audioBoxes, speed = 120){
+	for(let i = 0; i < numRows; i++){
+		[unused, matrix[i]] = getCurTrack(i, audioBoxes);
+	}
+	const track = new MidiWriter.Track();
+	track.setTempo(speed, 0);
+	track.addTrackName("drum patter");
+	let waitTime = [], rest = true;
+	for(let j = 0; j < numCols; j++){
+		let arr = []
+		rest = true;
+		for(let i = 0; i < numRows; i++){
+			if(matrix[i][j]){
+				rest = false
+				arr.push(midiNoteMap[i]);
+			}
+		}
+		if(rest){
+			waitTime.push("16");
+		}else{
+			let e = new MidiWriter.NoteEvent({pitch: arr, duration: "16", wait: waitTime, channel: 10})
+			track.addEvent(e);
+			waitTime = [];
+		}
+	}
+	const write = new MidiWriter.Writer(track);
+	return write.dataUri();
 }

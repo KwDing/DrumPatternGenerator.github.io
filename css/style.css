@@ -16,6 +16,7 @@ body{
 #container{
 	justify-content: center;
 	/* left: 30px; */
+	min-width: 1200px;
 	background-color: rgb(95, 30, 208);
 	color: rgb(240, 218, 255);
 	width: 70%;
