@@ -1,298 +1,478 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="utf-8" />
+		<meta charset= "utf-8" />
 		<title></title>
-		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<link rel="icon" type = "image/png" href="./img/1.png">
-		<link href="./css/style.css" rel="stylesheet">
-		<script type="text/javascript" src="./js/jquery-2.0.0.min.js"></script>
-		<script type="text/javascript" src="./js/index.js"></script>
+		<meta name= "viewport" content= "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+		<link rel= "icon" type = "image/png" href= "./img/1.png">
+		<link href= "./css/style.css" rel= "stylesheet">
+		<script type= "text/javascript" src= "./js/jquery-2.0.0.min.js"></script>
+		<script type= "text/javascript" src= "./js/index.js"></script>
+		<script type= "text/javascript" src= "./js/midiwriter.js"></script>
 	</head>
 	<body>
-		<audio id="audio1" style="display: none;" src="./audio/1-kick.wav"></audio>
-		<audio id="audio2" style="display: none" src="./audio/2-snare.wav"></audio>
-		<audio id="audio3" style="display: none" src="./audio/3-tom.wav"></audio>
-		<audio id="audio4" style="display: none" src="./audio/4-ch.wav"></audio>
-		<audio id="audio5" style="display: none" src="./audio/5-oh.wav"></audio>
-		<audio id="audio6" style="display: none" src="./audio/6-perc.wav"></audio>
-		<div id="container">
+		<audio id= "audio1" style= "display: none;" src= "./audio/1-kick.wav"></audio>
+		<audio id= "audio2" style= "display: none" src= "./audio/2-snare.wav"></audio>
+		<audio id= "audio3" style= "display: none" src= "./audio/3-tom.wav"></audio>
+		<audio id= "audio4" style= "display: none" src= "./audio/4-ch.wav"></audio>
+		<audio id= "audio5" style= "display: none" src= "./audio/5-oh.wav"></audio>
+		<audio id= "audio6" style= "display: none" src= "./audio/6-perc.wav"></audio>
+		<div id= "container">
 			
-		
-		<div class="f_r rowBox">
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox"></div>
+		<div class= "f_r rowBox">
+			<label for= "file-input" class= "label" btn>
 				Kick
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "space"> </div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				<div class= "audio_box"></div>
+				
+				<input type= "checkbox" name= "0" class = "freezechoice">
+				<input type= "range" class = "slider" name = "0" value = "8", min = "0", max = "16", step = 1 />
+				<label class = "sliderVal" name = "0">8</label>
+				<select class = "sel" Name = "Methods" id = "0" size = 1>
+					<option value = "default">default</option>
+					<option value = "half">half</option>
+					<option value = "halfadd">add half</option>
+					<option value = "4th">4th</option>
+					<option value = "add 4th">4th</option>
+					<option value = "8th">8th</option>
+					<option value = "step">random by step</option>
+					<option value = "random">random</option>\
+					<option value = "clear">clear</option>
+					<!-- <option value = "step">eighth</option> -->
+				</select>
+				<div class= "gen_btn" name= "0"> gen </div>
+				<div class= "move_left" name = "0">◀</div>
+				<div class= "move_right" name = "0">▶</div>
 			</div>
 			
 		
-		<div class="f_r rowBox">
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox">
+			<label for= "file-input" class= "label" btn>
 				Snare
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+
+			<input type= "checkbox" name= "1" class = "freezechoice">
+			<input type= "range" class = "slider" name = "1" value = "4", min = "0", max = "10", step = 1 />
+			<label class = "sliderVal" name = "1">4</label>
+			
+			<select class = "sel" Name = "Methods" id = "1" size = 1>
+				<option value = "default">default</option>
+				<option value = "half">2 & 4(default)</option>
+				<option value = "whole">halftime</option>
+				<!-- <option value = "add8th">add 8th note</option> -->
+				<option value = "step">random by step</option>
+				<option value = "random">random</option>
+				<option value = "clear">clear</option>
+			</select>
+			<div class= "gen_btn" name= "1"> gen </div>
+			<div class= "move_left" name = "1">◀</div>
+			<div class= "move_right" name = "1">▶</div>
 		</div>
 		
-		<div class="f_r rowBox">
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox">
+			<label for= "file-input" class= "label" btn>
 				Tom
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-			<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
-				<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+
+			<input type= "checkbox" name= "2" class = "freezechoice">
+			<input type= "range" class = "slider" name = "2" value = "4", min = "0", max = "5", step = 1 />
+			<label class = "sliderVal" name = "2">4</label>
+
+			<select class = "sel" Name = "Methods" id = "2" size = 1>
+				<option value = "default">default</option>
+
+				<option value = "4th">4th</option>
+				<option value = "8th">8th</option>
+				<option value = "step">random by step</option>
+				<option value = "random">random</option>
+				<option value = "clear">clear</option>
+			</select>
+			<div class= "gen_btn" name= "2"> gen </div>
+			<div class= "move_left" name = "2">◀</div>
+			<div class= "move_right" name = "2">▶</div>
 		</div>
 		
-		<div class="f_r rowBox">
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox">
+			<label for= "file-input" class= "label" btn>
 				CH
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+
+			<input type= "checkbox" name= "3" class = "freezechoice">
+			<input type= "range" class = "slider" name = "3" value = "16", min = "0", max = "32", step = 1 />
+			<label class = "sliderVal" name = "3">16</label>
+
+			<select class = "sel" Name = "Methods" id = "3" size = 1>
+				<option value = "default">default</option>
+				<option value = "8th">8th</option>
+				<option value = "16th">16th</option>
+				<option value = "step">random by step</option>
+				<option value = "random">random</option>
+				<option value = "clear">clear</option>
+			</select>
+			<div class= "gen_btn" name= "3">gen</div>
+			<div class= "move_left" name = "3">◀</div>
+			<div class= "move_right" name = "3">▶</div>
 		</div>
 		
-		<div class="f_r rowBox">
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox">
+			<label for= "file-input" class= "label" btn>
 				OH
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+
+			<input type= "checkbox" name= "4" class = "freezechoice">
+			<input type= "range" class = "slider" name = "4" value = "4", min = "0", max = "12", step = 1/>
+			<label class = "sliderVal" name = "4">4</label>
+			
+			<select class = "sel" Name = "Methods" id = "4" size = 1>
+				<option value = "default">default</option>
+				<option value = "step">random by step</option>
+				<option value = "random">random</option>
+				<option value = "switchrand">randomly switch CH to OH</option>
+				<option value = "switchstep">randomly switch CH to OH by step</option>
+				<option value = "switchstepadd">add CH to OH by step</option>
+				<option value = "clear">clear</option>
+			</select>
+			<div class= "gen_btn" name= "4"> gen </div>
+			<div class= "move_left" name = "4">◀</div>
+			<div class= "move_right" name = "4">▶</div>
 		</div>
 		<!-- <div class = "f_r rowBox" ></div> -->
-		<div class="f_r rowBox" ><!-- style="margin-top: 2.5rem;margin-left: 4.6875rem;" -->
-			<label for="file-input" class="label" btn>
+		<div class= "f_r rowBox" ><!-- style= "margin-top: 2.5rem;margin-left: 4.6875rem;" -->
+			<label for= "file-input" class= "label" btn>
 				Perc
-			<input id ="file-input" type = "file" style = "visibility: hidden; position: absolute;" ></label>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
-			<div class="audio_box"></div>
+			<input id = "file-input" type = "file" style = "visibility: hidden; position: absolute;" class = "f_in"></label>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+			<div class= "audio_box"></div>
+
+			<input type= "checkbox" name= "5" class = "freezechoice">
+			<input type= "range" class = "slider" name = "5" value = "4", min = "0", max = "16", step = 1 />
+			<label class = "sliderVal" name = "5">4</label>
+			
+			<select class = "sel" Name = "Methods" id = "5" size = 1>
+				<option value = "default">default</option>
+				<option value = "4th">fourth</option>
+				<option value = "8th">eighth</option>
+				<option value = "step">random by step</option>
+				<option value = "random">random</option>
+				<option value = "clear">clear</option>
+			</select>
+			<div class= "gen_btn" name= "5"> gen </div>
+			<div class= "move_left" name = "5">◀</div>
+			<div class= "move_right" name = "5">▶</div>
 		</div>
 		
-		<!--  style="margin-top: 2.5rem;margin-left: 4.6875rem;" -->
-		<div class="f_r rowBox" >
-			<div class="label">
+		<!--  style= "margin-top: 2.5rem;margin-left: 4.6875rem;" -->
+		<div class= "f_r rowBox" >
+			<div class= "label">
 				    
 			</div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>	
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>	
-			<div class="audio_box2"></div>	
-			<div class="audio_box2"></div>	
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
-			<div class="audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "space"> </div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+			<div class= "audio_box2"></div>
+
+			<input type= "checkbox" name= "KickFreezed" class = "freezechoice" style = "visibility: hidden;">
+			<input type= "range" class = "slider" min = "0", max = "16", step = 1 style = "visibility: hidden;"/>
+			<label class = "sliderVal" style = "visibility: hidden;">8</label>
+			
+			<select class = "sel" Name = "Methods" size = 1 style = "visibility: hidden;">
+				<option value = "default">default</option>
+			</select>
+			<div class= "gen_btn" style = "visibility: hidden;"> gen </div>
+			<div class= "move_left" style = "visibility: hidden;" name = "5">◀</div>
+			<div class= "move_right" style = "visibility: hidden;" name = "5">▶</div>
 	</div>
-	
-		<div class="f_r rowBox">
-			<input class="in_box" id="BPM" value="120" />
-			<div id="start" class="com_bt"> Start </div>
-			<div id="stop" class="com_bt"> Stop </div>
-			<div id="clear" class = "com_bt"> Clear </div>
-			<div id="random" class="com_bt">Random Pattern</div>
+	<div class= "f_r rowBox">
+		<input type = "button" id = "addBtn" value = "Scratch">
+		<label for="Hatopts" style = "padding-left: 60%; :right; margin-left: auto; margin-right: 0px;">OH and CH options</label>	
+		<select class = "sel2" id = "Hatopts" size = 1>
+			<option value = "avoid">default(avoid overlap in CH and OH)</option>
+			<option value = "brutal">ignore overlap in CH and OH</option>
+			<option value = "sync">sync OH generatoin with CH</option>
+		</select> 
+	</div>
+
+		<div class= "f_r rowBox">
+			<input class= "in_box" id= "BPM" value= "120" />
+			<div id= "start" class= "com_bt"> Start </div>
+			<div id= "stop" class= "com_bt"> Stop </div>
+			<div id= "clear" class = "com_bt"> Clear </div>
+			<div id= "genall" class= "com_bt">Generate Pattern</div>
+			
 		</div>
 	</body>
 </html>
