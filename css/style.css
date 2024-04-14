@@ -147,6 +147,19 @@ body{
 	/* margin-left: 0.25rem;
 	margin-right: 0.25rem; */
 }
+.dlBtn{
+	/* width: 9.375rem; */
+	/* width: 12%; */
+	justify-content: left;
+	padding-left: 0rem;
+	padding-right: auto;
+	height : 2rem;
+	background-color:rgb(240, 218, 255);
+	color: rgb(95, 30, 208);
+	border-radius: 0.25rem;
+	margin-left: 0rem;
+	text-align: center;
+}
 select{
 	max-width: 80px;
     width: 80px;
@@ -158,4 +171,12 @@ option{
     overflow: hidden;
     /* white-space: nowrap; */
     text-overflow: ellipsis;
+}
+
+.gen_btn:active{
+	background-color: rgb(40, 61, 128);
+}
+.gen_btn:hover{
+	background-color: rgb(24, 24, 118);
+	color: rgb(95, 30, 208);
 }

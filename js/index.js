@@ -421,7 +421,7 @@ window.addEventListener('load',function(){
 		}
 	});
 	downloadBtn.addEventListener("click", function(){
-		let uri = get_midi(audioBoxes);
+		let uri = get_midi(audioBoxes,BPM.value);
 		downloadContent.href = uri;
 		downloadContent.click();
 	})
