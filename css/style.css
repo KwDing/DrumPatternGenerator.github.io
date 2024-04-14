@@ -146,12 +146,15 @@ body{
 	/* margin-left: 0.25rem;
 	margin-right: 0.25rem; */
 }
-select, option {
+select{
+	max-width: 80px;
     width: 80px;
+	overflow: auto; 
 } 
 
 option{
+	width: 80px;
     overflow: hidden;
-    white-space: nowrap;
+    /* white-space: nowrap; */
     text-overflow: ellipsis;
 }
