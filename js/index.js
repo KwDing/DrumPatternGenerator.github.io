@@ -92,6 +92,11 @@ function genTrack(row, audioBoxes, method = "random", stepNum = 0, addon = false
 			if(row == 1){offset = ptn/2;}
 			getFixedPtn(row, audioBoxes, ptn, offset, addon, avoid);
 			break;
+		case "4thadd":
+			var ptn = 4;
+			if(row == 1){offset = ptn/2;}
+			getFixedPtn(row, audioBoxes, ptn, offset, true, avoid);
+			break;
 		case "8th": 
 			var ptn = 2;
 			getFixedPtn(row, audioBoxes, ptn, offset, addon, avoid);
