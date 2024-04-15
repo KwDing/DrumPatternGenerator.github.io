@@ -19,8 +19,11 @@
 		<audio id= "audio5" style= "display: none" src= "./audio/5-oh.wav"></audio>
 		<audio id= "audio6" style= "display: none" src= "./audio/6-perc.wav"></audio>
 		<div id= "container">
-			
-		<div class= "f_r rowBox"></div>
+		
+		<label for = "file-input" class = "finlbl">Click instrument name to load audio file:</label>
+		<label for = "freezechoice" class = "checklbl">Freeze</label>
+		<label for = "slider" class = "steplbl">Step Number</label>
+		<label for = "Methods" class = "methodlbl">Method</label>
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label" btn>
 				Kick
@@ -458,7 +461,8 @@
 		</div>
 		<div class= "f_r rowBox">
 			<input type = "button" id = "addBtn" value = "Scratch">
-			<label for="Hatopts" style = "padding-left: 60%; :right; margin-left: auto; margin-right: 0px;">OH and CH options</label>	
+			<label for="Hatopts" style = "position: relative;font-size: small; background-color: #31478c;;
+			top:-1.75rem; left: 61.7rem;">OH and CH options</label>	
 			<select class = "sel2" id = "Hatopts" size = 1>
 				<option value = "avoid">default(avoid overlap in CH and OH)</option>
 				<option value = "brutal">ignore overlap in CH and OH</option>
