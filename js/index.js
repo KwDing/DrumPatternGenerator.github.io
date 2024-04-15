@@ -254,7 +254,8 @@ window.addEventListener('load',function(){
 	var audioBoxes = document.getElementsByClassName("audio_box");
 	var audio2Boxes = document.getElementsByClassName("audio_box2");
 
-	var addBtn = document.querySelector("#addBtn")
+	var addBtn = document.querySelector("#addBtn");
+	var addlbl = document.querySelector("#addlbl");
 	var HHChoice = document.querySelector("#Hatopts");
 	var start = document.querySelector("#start");
 	var stop = document.querySelector("#stop");
@@ -306,9 +307,11 @@ window.addEventListener('load',function(){
 		if(this.value == "Scratch"){
 			this.value = "Add";
 			$(addBtn).addClass("addmode");
+			addlbl.textContent = "Tracks not cleared before generation."
 		}else{
 			this.value = "Scratch";
 			$(addBtn).removeClass("addmode");
+			addlbl.textContent = "Tracks cleared before generation."
 		}
 	});
 	for(let i = 0; i < numRows; i++){
@@ -471,7 +474,8 @@ function get_midi(audioBoxes, speed = 120){
 	}
 	const track = new MidiWriter.Track();
 	track.setTempo(speed, 0);
-	track.addTrackName("drum patter");
+	track.addTrackName("drum pattern");
+	track.addCopyright("©github.com/KwDing");
 	let waitTime = [], rest = true;
 	for(let j = 0; j < numCols; j++){
 		let arr = []

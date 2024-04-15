@@ -171,9 +171,8 @@ body{
 	width: 5em
 }
 .sel2{
-	margin-left: auto; 
-	margin-right: 0;
-	align-items: right;
+	position: relative;
+	left: 45rem;
 }
 .slider{
 	width: 8%;
@@ -197,6 +196,15 @@ body{
 	margin-left: 0rem;
 	text-align: center;
 }
+/* .addlbl{
+	position: relative;
+	top:0.5rem; left: 10rem;
+	background-color:  hsl(225, 48%, 37%);
+	display: inline-block;
+	margin-left: 10px;
+	font-size: small;
+	color:rgb(209, 225, 239)
+} */
 select{
 	max-width: 80px;
     width: 80px;
