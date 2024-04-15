@@ -274,6 +274,38 @@ window.addEventListener('load',function(){
 	var downloadContent = document.querySelector("#dlContent")
 	var downloadBtn = document.querySelector("#dlBtn")
 	var interval = 15000/BPM.value;
+	var currentStep = 0;
+	// attaching addEventListener for keydown
+	document.addEventListener('keydown', (event) => {
+		var keyName = event.key;
+		var keyCode = event.code;
+		// alert(`Keydown: The key pressed is ${keyName} and its code value is ${keyCode}`);
+		switch(event.code){
+			case "Space": startPlayback(); break;
+			case "Enter": 
+				for(let i = 0; i < numRows; i++){getTrack(i);}
+				break;
+			case "Digit1": if(!event.ctrlKey){getTrack(0);}else{changeFrzStatus(0);} break;
+			case "Digit2": if(!event.ctrlKey){getTrack(1);}else{changeFrzStatus(1);} break;
+			case "Digit3": if(!event.ctrlKey){getTrack(2);}else{changeFrzStatus(2);} break;
+			case "Digit4": if(!event.ctrlKey){getTrack(3);}else{changeFrzStatus(3);} break;
+			case "Digit5": if(!event.ctrlKey){getTrack(4);}else{changeFrzStatus(4);} break;
+			case "Digit6": if(!event.ctrlKey){getTrack(5);}else{changeFrzStatus(5);} break;
+			case "KeyS": if(event.ctrlKey){downloadMIDI();} break;
+		}
+  	}, false);
+
+	function changeFrzStatus(i){
+		let frzCh = freezeChoices[i]
+		if(!frzCh.checked){
+			genTracksBtn[i].setAttribute("disabled", "");
+			frzCh.checked = true;
+		}else{
+			genTracksBtn[i].removeAttribute("disabled");
+			frzCh.checked = false;
+		}
+		
+	}
 
 	function getTrack(i){
 		if(!genTracksBtn[i].hasAttribute("disabled")){
@@ -392,24 +424,35 @@ window.addEventListener('load',function(){
 	
 	let controlfun = null;
 	var startFlag = false;
-	start.addEventListener("click",function(){
-
+	function startPlayback(){
 		if(!startFlag){
 			controlfun = setInterval(timeControl,interval);
-			$(audio2Boxes[0]).addClass("active");
+			$(audio2Boxes[index]).addClass("active");
 			startFlag = true;
-
+			start.textContent = "Pause";
 		}
-		
-	});
-	
-	stop.addEventListener("click",function(){
+		else{
+			pausePlayback();
+		}
+	}
+	function pausePlayback(){
+		clearInterval(controlfun);
+		startFlag = false;
+		controlfun = null;
+		start.textContent = "Play";
+	}
+	function stopPlayback(){
 		clearInterval(controlfun);
 		$(audio2Boxes[(index+31)%32]).removeClass("active");
 		index = 0;
 		startFlag = false;
 		controlfun = null;
-	});
+		start.textContent = "Play";
+	}
+	
+	start.addEventListener("click", startPlayback);
+	stop.addEventListener("click", stopPlayback);
+
 	clear.addEventListener("click", function(){
 		$(audio2Boxes[(index+31)%32]).removeClass("active");
 		reset();
@@ -428,11 +471,12 @@ window.addEventListener('load',function(){
 			getTrack(i);
 		}
 	});
-	downloadBtn.addEventListener("click", function(){
+	downloadBtn.addEventListener("click", downloadMIDI);
+	function downloadMIDI(){
 		let uri = get_midi(audioBoxes,BPM.value);
 		downloadContent.href = uri;
 		downloadContent.click();
-	})
+	}
 	
 });
 
