@@ -5,7 +5,9 @@ body{
 	justify-content: center;
 }
 .rowBox{
-	margin-top: 1.25rem;
+	/* position: inherit; */
+	/* padding-top: 0.75rem; */
+	margin-top: 1rem;
 }
 .label{
 	width: 4.6875rem;
@@ -29,14 +31,33 @@ body{
 	flex-direction: row;
 	width: 100%;
 	text-align: center;
+	height: 1.5rem;
 }
-
+/* .f_in{
+	visibility: visible; 
+	position: relative; 
+	top: -1rem; 
+	left: -1rem; 
+	width: 5rem;
+	color:rgba(0, 0, 0, 0);
+} */
+input[type="file"]{
+    opacity: 0;
+    filter:alpha(opacity=0);
+    /* display; */
+    height: 1.3rem;
+    position:relative; 
+	width: 5rem;
+	top: -1rem;
+	left: -1rem;
+    cursor: pointer;
+}
 .finlbl{
 	position: relative;
 	top:0rem; left: -25rem;
 	/* background-color:  hsl(225, 48%, 37%); */
 	/* display: inline-block; */
-	display: inline;
+	display: inline-block;
 	margin-left: 10px;
 	/* font-size: small; */
 	color:rgb(209, 225, 239)

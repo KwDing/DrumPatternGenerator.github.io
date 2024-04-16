@@ -400,6 +400,7 @@ window.addEventListener('load',function(){
 		controlfun = null;
 		controlfun = setInterval(timeControl,interval);
 	});
+
 	let index = 0;
 
 
