@@ -285,12 +285,24 @@ window.addEventListener('load',function(){
 			case "Enter": 
 				for(let i = 0; i < numRows; i++){getTrack(i);}
 				break;
-			case "Digit1": if(!event.ctrlKey){getTrack(0);}else{changeFrzStatus(0);} break;
-			case "Digit2": if(!event.ctrlKey){getTrack(1);}else{changeFrzStatus(1);} break;
-			case "Digit3": if(!event.ctrlKey){getTrack(2);}else{changeFrzStatus(2);} break;
-			case "Digit4": if(!event.ctrlKey){getTrack(3);}else{changeFrzStatus(3);} break;
-			case "Digit5": if(!event.ctrlKey){getTrack(4);}else{changeFrzStatus(4);} break;
-			case "Digit6": if(!event.ctrlKey){getTrack(5);}else{changeFrzStatus(5);} break;
+			case "Digit1": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(0);}
+				else{changeFrzStatus(0);} break;
+			case "Digit2": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(1);}
+				else{changeFrzStatus(1);} break;
+			case "Digit3": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(2);}
+				else{changeFrzStatus(2);} break;
+			case "Digit4": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(3);}
+				else{changeFrzStatus(3);} break;
+			case "Digit5": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(4);}
+				else{changeFrzStatus(4);} break;
+			case "Digit6": if(!event.ctrlKey){
+				if(event.shiftKey)getTrack(5);}
+				else{changeFrzStatus(5);} break;
 			case "KeyS": if(event.ctrlKey){downloadMIDI();} break;
 		}
   	}, false);
