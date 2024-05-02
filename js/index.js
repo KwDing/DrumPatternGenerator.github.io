@@ -454,7 +454,8 @@ window.addEventListener('load',function(){
 		$(labels[i]).change(function(){
 			var url = null;
 			url = URL.createObjectURL(this.files[0]);
-			audioSources[i].src=url;
+			multiPlayer[i] = new Tone.Player(url);
+			multiPlayer[i].connect(verbs[i]);
 		});
 
 		$(sliders[i]).on("input change", function() { 
