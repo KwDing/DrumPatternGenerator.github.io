@@ -33,6 +33,7 @@ body{
 	text-align: center;
 	height: 1.5rem;
 }
+
 /* .f_in{
 	visibility: visible; 
 	position: relative; 
@@ -41,10 +42,11 @@ body{
 	width: 5rem;
 	color:rgba(0, 0, 0, 0);
 } */
+
+
 input[type="file"]{
     opacity: 0;
     filter:alpha(opacity=0);
-    /* display; */
     height: 1.3rem;
     position:relative; 
 	width: 5rem;
@@ -55,8 +57,6 @@ input[type="file"]{
 .finlbl{
 	position: relative;
 	top:0rem; left: -25rem;
-	/* background-color:  hsl(225, 48%, 37%); */
-	/* display: inline-block; */
 	display: inline-block;
 	margin-left: 10px;
 	/* font-size: small; */
@@ -129,6 +129,9 @@ input[type="file"]{
 .active{
 	background-color: rgb(230, 234, 138);
 }
+.accent{
+	background-color: rgb(255, 209, 58);
+}
 .space{
 	margin-left: 0.25rem;
 }
@@ -156,8 +159,6 @@ input[type="file"]{
 }
 
 .gen_btn{
-	/* width: 9.375rem; */
-	/* width: 12%; */
 	padding: 0.1rem;
 	background-color: rgb(40, 61, 128);
 	border-radius: 0.25rem;
@@ -188,7 +189,6 @@ input[type="file"]{
 	margin-left: 0.25rem;
 	margin-right: 0.25rem;
 	padding:0.1rem;
-	/* width: 80px; */
 	width: 5em
 }
 .sel2{
@@ -200,9 +200,7 @@ input[type="file"]{
 }
 .sliderVal{
 	width : 2rem;
-	/* padding:0.25rem; */
-	/* margin-left: 0.25rem;
-	margin-right: 0.25rem; */
+
 }
 .dlBtn{
 	/* width: 9.375rem; */
@@ -217,15 +215,7 @@ input[type="file"]{
 	margin-left: 0rem;
 	text-align: center;
 }
-/* .addlbl{
-	position: relative;
-	top:0.5rem; left: 10rem;
-	background-color:  hsl(225, 48%, 37%);
-	display: inline-block;
-	margin-left: 10px;
-	font-size: small;
-	color:rgb(209, 225, 239)
-} */
+
 select{
 	max-width: 80px;
     width: 80px;
@@ -235,7 +225,6 @@ select{
 option{
 	width: 80px;
     overflow: hidden;
-    /* white-space: nowrap; */
     text-overflow: ellipsis;
 }
 
@@ -246,3 +235,58 @@ option{
 	background-color: rgb(24, 24, 118);
 	color: rgb(95, 30, 208);
 }
+
+.slidecontainer{
+	position:relative;
+	align-items: left;
+	left: -28rem;
+	top: -0.2rem;
+	height: 0.5rem;
+	margin-left: 0px;
+}
+.sliderVol{
+	position: absolute;
+	align-items: left;
+	left : 30rem;
+	top:auto;
+	width : 6rem;
+	/* padding-right: 2em; */
+}
+.Volumelbl{
+	position:absolute;
+	align-items: left;
+	left: 36rem;
+	top:auto;
+	width: 3rem;
+}
+.verb{
+	/* position: relative; */
+	position:absolute;
+	align-items: left;
+	left : 40rem;
+	top:auto;
+	width : 6rem;
+}
+.verblbl{
+	position: absolute;
+	align-items: left;
+	left : 47rem;
+	top:auto;
+	width: 10rem;
+	text-align: left;
+
+}
+/* .knobVal {
+	font-size: 10vw;
+	color: #333;
+	text-shadow: 3px 3px 2px #aaa;
+	font-variant-numeric: tabular-nums;
+	transition: color .4s ease-in-out;
+	margin-top: 2rem;
+	z-index: 2;
+	&.active {
+	  color: firebrick; 
+	  text-shadow: 3px 3px 10px #aaa;
+	}
+  } */
+/* input[type="range"]  */

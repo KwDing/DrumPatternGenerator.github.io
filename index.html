@@ -7,6 +7,7 @@
 		<meta name= "viewport" content= "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<link rel= "icon" type = "image/png" href= "./img/1.png">
 		<link href= "./css/style.css" rel= "stylesheet">
+		<script src="http://unpkg.com/tone"></script>
 		<script type= "text/javascript" src= "./js/jquery-2.0.0.min.js"></script>
 		<script type= "text/javascript" src= "./js/index.js"></script>
 		<script type= "text/javascript" src= "./js/midiwriter.js"></script>
@@ -21,9 +22,9 @@
 		<div id= "container">
 		
 		<label for = "file-input" type = "file" class = "finlbl">Click instrument name to load audio file:</label>
-		<label for = "freezechoice" class = "checklbl">Freeze</label>
-		<label for = "slider" class = "steplbl">Step Number</label>
-		<label for = "Methods" class = "methodlbl">Method</label>
+		<label class = "checklbl">Freeze</label>
+		<label class = "steplbl">Step Number</label>
+		<label class = "methodlbl">Method</label>
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label">
 				Kick
@@ -79,6 +80,7 @@
 					<option value = "4th">4th</option>
 					<option value = "4thadd">add 4th</option>
 					<option value = "8th">8th</option>
+					<option value = "eu">euclidean</option>
 					<option value = "step">random by step</option>
 					<option value = "random">random</option>\
 					<option value = "clear">clear</option>
@@ -88,7 +90,15 @@
 				<div class= "move_left" name = "0">◀</div>
 				<div class= "move_right" name = "0">▶</div>
 			</div>
-			
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<!-- <label class = ""> -->
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
+			<!-- <div class="knobVal">60</div>
+			<input id="rangeslider" type="range" class = "knob" value="60" min="0" max="100" step="1"> -->
+		</div>
 		
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label">
@@ -143,6 +153,7 @@
 				<option value = "default">default</option>
 				<option value = "half">2 & 4(default)</option>
 				<option value = "whole">halftime</option>
+				<option value = "eu">euclidean</option>
 				<!-- <option value = "add8th">add 8th note</option> -->
 				<option value = "step">random by step</option>
 				<option value = "random">random</option>
@@ -153,6 +164,13 @@
 			<div class= "move_right" name = "1">▶</div>
 		</div>
 		
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
+		</div>
+
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label">
 				Tom
@@ -205,9 +223,10 @@
 
 			<select class = "sel" Name = "Methods" id = "2" size = 1>
 				<option value = "default">default</option>
-
+				
 				<option value = "4th">4th</option>
 				<option value = "8th">8th</option>
+				<option value = "eu">euclidean</option>
 				<option value = "step">random by step</option>
 				<option value = "random">random</option>
 				<option value = "clear">clear</option>
@@ -217,6 +236,13 @@
 			<div class= "move_right" name = "2">▶</div>
 		</div>
 		
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
+		</div>
+
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label">
 				CH
@@ -272,6 +298,7 @@
 				<option value = "16th">16th</option>
 				<option value = "step">random by step</option>
 				<option value = "random">random</option>
+				<option value = "eu">euclidean</option>
 				<option value = "clear">clear</option>
 			</select>
 			<div class= "gen_btn" name= "3">gen</div>
@@ -279,6 +306,13 @@
 			<div class= "move_right" name = "3">▶</div>
 		</div>
 		
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
+		</div>
+
 		<div class= "f_r rowBox">
 			<label for= "file-input" class= "label">
 				OH
@@ -335,11 +369,19 @@
 				<option value = "switchrand">randomly switch CH to OH</option>
 				<option value = "switchstep">randomly switch CH to OH by step</option>
 				<option value = "switchstepadd">add CH to OH by step</option>
+				<option value = "eu">euclidean</option>
 				<option value = "clear">clear</option>
 			</select>
 			<div class= "gen_btn" name= "4"> gen </div>
 			<div class= "move_left" name = "4">◀</div>
 			<div class= "move_right" name = "4">▶</div>
+		</div>
+
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
 		</div>
 		
 		<div class= "f_r rowBox" ><!-- style= "margin-top: 2.5rem;margin-left: 4.6875rem;" -->
@@ -397,13 +439,20 @@
 				<option value = "8th">eighth</option>
 				<option value = "step">random by step</option>
 				<option value = "random">random</option>
+				<option value = "eu">euclidean</option>
 				<option value = "clear">clear</option>
 			</select>
 			<div class= "gen_btn" name= "5"> gen </div>
 			<div class= "move_left" name = "5">◀</div>
 			<div class= "move_right" name = "5">▶</div>
 		</div>
-		
+		<div class="slidecontainer">
+			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<label class = "Volumelbl" id = "1">0dB</label>
+			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
+			<label class = "verblbl"> 0% reverb</label>
+		</div>
+
 		<div class= "f_r rowBox" >
 			<div class= "label">
 				    
@@ -478,7 +527,8 @@
 			<div id= "start" class= "com_bt"> Start </div>
 			<div id= "stop" class= "com_bt"> Stop </div>
 			<div id= "clear" class = "com_bt"> Clear </div>
-			<div id= "genall" class= "com_bt">Generate Pattern</div>
+			<div id= "genall" class= "com_bt">Generate</div>
+			<div id = "resetMix" class = "com_bt"> Reset Mix </div>
 		</div>
 		
 	<!-- <img src = "/img/dlicon.png" align="left" alt="click to download Midi">  -->

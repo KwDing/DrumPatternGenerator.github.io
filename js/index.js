@@ -2,6 +2,11 @@ const numCols = 32;
 const numRows = 6;
 const defaultChoices = ["step", "half", "random","step", "random", "step"];
 const x = Array.from(Array(numCols).keys());
+const audioFolder = "audio/";
+const audioFilenames = [["1-kick.wav","2-snare.wav","3-tom.wav", "4-ch.wav","5-oh.wav","6-perc.wav"]];
+
+let multiPlayer = [];
+// 
 let matrix = Array(numRows).fill().map(()=> Array(numCols).fill(0));
 let avoidOpts = [null,null,null,4,3,null];
 let syncOpts = Array(numRows).fill(null);
@@ -9,6 +14,14 @@ let syncOpts = Array(numRows).fill(null);
 const midiNoteMap = ["C2", "E2", "B2", "G#2", "A#2", "G#3"];
 
 let frozen = new Array(numRows).fill(false);
+
+function load_audio(Index){
+	for(let i = 0; i < numRows; i++){
+		let player = new Tone.Player(audioFolder+audioFilenames[Index][i]);//.toDestination();
+		multiPlayer.push(player);
+	}
+}
+
 
 //all elements of arr1 not in arr2, both arr1 and arr2 sorted
 function getComplement(arr1, arr2){
@@ -32,6 +45,8 @@ function getComplement(arr1, arr2){
 	}
 	return ans;
 }
+
+
 function getCurTrack(row, audioBoxes){
 	var i = 0, indexStart = row * numCols;
 	var indexEnd = indexStart + numCols;
@@ -71,6 +86,7 @@ function getRandom(audioBoxes, freezeChoices){
 		getRandomTrack(row,audioBoxes,thres);
 	}
 }
+
 
 function genTrack(row, audioBoxes, method = "random", stepNum = 0, addon = false, avoid = null, sync = null, offset = 0){
 	let arr = getCurTrack(row, audioBoxes);
@@ -113,9 +129,26 @@ function genTrack(row, audioBoxes, method = "random", stepNum = 0, addon = false
 		case "switchstep": switchbyStep(row,audioBoxes, stepNum, addon);
 			break;
 		case "switchstepadd": switchbyStep(row,audioBoxes, stepNum,true); break;
+		case "eu": getEuclidean(row, audioBoxes, stepNum, addon); break;
 		default: 
 			genTrack(row, audioBoxes,defaultChoices[row],stepNum, addon, avoid, sync, offset);
 	}
+}
+
+
+function getEuclidean(row, audioBoxes, stepNum, addon){
+	let num = numCols;
+	var indexStart = row * numCols;
+	matrix[row] = euclidean_rhythm(num, stepNum);
+	if(!addon){
+		clearTrack(row, audioBoxes);
+	}
+	for(var col = 0; col < numCols; col++){
+		if(matrix[row][col]){
+			$(audioBoxes[indexStart + col]).addClass("active");
+		}
+	}
+	
 }
 
 function getRandomTrack(row, audioBoxes, thres = 0.2, addon = false, avoid = null){
@@ -135,7 +168,7 @@ function getRandomTrack(row, audioBoxes, thres = 0.2, addon = false, avoid = nul
 	
 	for(var col = 0; col < numCols; col++){
 		if(Math.random() < thres && avoidTrackB[col] == 0) {
-			// if(!$(audioBoxes[indexStart + col]).hasClass("active"))
+			// if(!$(audioBoxes[indexStart + col]).hasClass("active")) 
 			matrix[row][col] = 1
 			$(audioBoxes[indexStart + col]).addClass("active");
 		}else{
@@ -220,6 +253,7 @@ function clearTrack(row, audioBoxes){
 	var indexStart = row*numCols
 		for(let index = indexStart; index < indexStart + numCols; index++){
 			$(audioBoxes[index]).removeClass("active");
+			$(audioBoxes[index]).removeClass("accent");
 		}
 }
 
@@ -247,7 +281,8 @@ function getFixedPtn(row, audioBoxes, step = 8, offset = 0, addon = false, avoid
 
 
 window.addEventListener('load',function(){
-	
+	load_audio(0);
+
 	var audioSources = document.getElementsByTagName("audio");
 	var labels = document.getElementsByClassName('f_in');
 
@@ -264,6 +299,10 @@ window.addEventListener('load',function(){
 	
 	var sliders = document.getElementsByClassName("slider");
 	var sliderVals = document.getElementsByClassName("sliderVal")
+	var trackVolSliders = document.getElementsByClassName("sliderVol");
+	var trackVolLbls = document.getElementsByClassName("Volumelbl");
+	var trackVerbs = document.getElementsByClassName("verb");
+	var trackVerblbls = document.getElementsByClassName("verblbl");
 
 	var freezeChoices = document.getElementsByClassName("freezechoice");
 	var genTracksBtn = document.getElementsByClassName("gen_btn");
@@ -271,14 +310,47 @@ window.addEventListener('load',function(){
 	var moveLeft = document.getElementsByClassName("move_left");
 	var moveRight = document.getElementsByClassName("move_right");
 	var BPM = document.querySelector("#BPM");
+	var resetMixbtn = document.querySelector("#resetMix");
 	var downloadContent = document.querySelector("#dlContent")
 	var downloadBtn = document.querySelector("#dlBtn")
-	var interval = 15000/BPM.value;
-	var currentStep = 0;
-	// attaching addEventListener for keydown
+	// var interval = 15000/BPM.value;
+
+
+
+	Tone.Transport.bpm.value = BPM.value;
+	var verbs = []
+	for(let i = 0; i < numRows; i++){
+		verbs.push(new Tone.Freeverb(0.6,3000).toDestination());
+	}
+
+
+	
+	Tone.Transport.scheduleRepeat((time) => {
+		let current;
+		for (var i = 0; i < numRows; i++){
+			current = index + numCols * i
+			if($(audioBoxes[current]).hasClass("active")){
+				let accnt = $(audioBoxes[current]).hasClass("accent");
+				// if(!accnt){multiPlayer[i].volume.value -= 12;}
+				// multiPlayer[i].start(time).stop(time + interval/1000);
+				multiPlayer[i].start(time);
+				// if(!accnt){multiPlayer[i].volume.value += 12;}
+			}
+		}
+		$(audio2Boxes[(index+31)%32]).removeClass("active");
+		if(index+1>31){
+			index=0;
+		}else{
+			index++;
+		}
+		$(audio2Boxes[(index+31)%32]).addClass("active");
+		
+	}, "16n");
+	// transport must be started before it starts invoking events
+
+
+
 	document.addEventListener('keydown', (event) => {
-		var keyName = event.key;
-		var keyCode = event.code;
 		// alert(`Keydown: The key pressed is ${keyName} and its code value is ${keyCode}`);
 		switch(event.code){
 			case "Space": startPlayback(); break;
@@ -358,7 +430,19 @@ window.addEventListener('load',function(){
 			addlbl.textContent = "Tracks cleared before generation."
 		}
 	});
+
+	resetMixbtn.addEventListener("click", function(){
+		for(let i = 0; i < numRows; i++){
+			trackVolSliders[i].value = "0";
+			trackVolLbls[i].textContent = "0dB";
+			trackVerbs[i].value = "0";
+			trackVerblbls[i].textContent = "0% reverb";
+		}
+	});
+	
 	for(let i = 0; i < numRows; i++){
+		multiPlayer[i].connect(verbs[i]);
+
 		$(freezeChoices[i]).change(function(){
 			if(this.checked){
 				genTracksBtn[parseInt(this.name)].setAttribute("disabled", "");
@@ -391,11 +475,40 @@ window.addEventListener('load',function(){
 				}
 			});
 		}
+		// for(let j = 0; j < numCols; j++){
+		// 	let index = i*numCols + j;
+		// 	audioBoxes[index].addEventListener("click",function(){
+		// 		if($(audioBoxes[index]).hasClass("active")){
+		// 			if($(audioBoxes[index]).hasClass("accent")){
+		// 				$(audioBoxes[index]).removeClass("active");
+		// 				$(audioBoxes[index]).removeClass("accent");
+		// 			}else{$(audioBoxes[index]).addClass("accent");}
+		// 		}else{
+		// 			$(audioBoxes[index]).addClass("active");
+		// 		}
+		// 	});
+		// }
+
+
 		$(moveLeft[i]).click(function(){
 			switch_left(i, freezeChoices[i].checked, audioBoxes)
 		});
 		$(moveRight[i]).click(function(){
 			switch_right(i, freezeChoices[i].checked, audioBoxes)
+		});
+
+		$(trackVolSliders[i]).change(function(){
+			var suffix = "";
+			if(parseInt(this.value) > 0) suffix = "+";
+			trackVolLbls[i].textContent = suffix + this.value + "dB";
+			multiPlayer[i].volume.value = parseInt(this.value);
+		});
+
+		verbs[i].wet.value = 0; 
+		$(trackVerbs[i]).change(function(){
+			trackVerblbls[i].textContent = this.value + "% reverb";
+			verbs[i].wet.value = parseFloat(this.value/100);
+			console.log(i, verbs[i].wet.value);
 		});
 	}
 	
@@ -406,61 +519,42 @@ window.addEventListener('load',function(){
 		if( parseInt(this.value)<20 ){
 			alert("can't be smaller than 20");
 			this.value=120;
+			Tone.Transport.bpm.value = 120;
 		}
+		Tone.Transport.bpm.value = BPM.value;
 		interval = 15000/BPM.value;
-		clearInterval(controlfun);
-		controlfun = null;
-		controlfun = setInterval(timeControl,interval);
+
+
 	});
 
 	let index = 0;
 
-
-	let timeControl = function(){
-		for (var i=0;i<numRows;i++){
-			if($(audioBoxes[index + numCols * i]).hasClass("active")){
-				// audioSources[i].load();
-				audioSources[i].currentTime = 0;
-				audioSources[i].play();
-			}
-		}
-		setTimeout(function(){
-			$(audio2Boxes[(index+31)%32]).removeClass("active");
-			if(index+1>31){
-				index=0;
-			}else{
-				index++;
-			}
-			$(audio2Boxes[(index+31)%32]).addClass("active");
-		},interval);
-	}
 	
 	let controlfun = null;
 	var startFlag = false;
 	function startPlayback(){
 		if(!startFlag){
-			controlfun = setInterval(timeControl,interval);
 			$(audio2Boxes[index]).addClass("active");
 			startFlag = true;
 			start.textContent = "Pause";
+			Tone.Transport.start();
 		}
 		else{
 			pausePlayback();
+			
 		}
 	}
 	function pausePlayback(){
-		clearInterval(controlfun);
 		startFlag = false;
-		controlfun = null;
 		start.textContent = "Play";
+		Tone.Transport.stop();
 	}
 	function stopPlayback(){
-		clearInterval(controlfun);
 		$(audio2Boxes[(index+31)%32]).removeClass("active");
 		index = 0;
 		startFlag = false;
-		controlfun = null;
 		start.textContent = "Play";
+		Tone.Transport.stop();
 	}
 	
 	start.addEventListener("click", startPlayback);
@@ -468,10 +562,10 @@ window.addEventListener('load',function(){
 
 	clear.addEventListener("click", function(){
 		$(audio2Boxes[(index+31)%32]).removeClass("active");
+		
 		reset();
 	});
 	function reset(){
-		// matrix.fill(0);
 		for(let i = 0; i < numRows; i++){
 			if(!freezeChoices[i].checked){
 				clearTrack(i,audioBoxes);
@@ -498,7 +592,6 @@ function switch_left(row, freezed, audioBoxes){
 	if(freezed) return;
 	var indexStart = row * 32;
 	var tmp = $(audioBoxes[row*numCols]).hasClass("active");
-	var cur, prev;
 	for(var i = 0; i < numCols-1; i++){
 		next = $(audioBoxes[indexStart+i+1]).hasClass("active");
 		set_audiobox(audioBoxes[indexStart+i], next);
@@ -553,4 +646,41 @@ function get_midi(audioBoxes, speed = 120){
 	}
 	const write = new MidiWriter.Writer(track);
 	return write.dataUri();
+}
+
+function euclidean_rhythm(num, step){
+	let i = 0, r = step, r_prev = num, list_of_steps = [], r_cur = 0, delNum = 0;
+	for(i=0;i<step;i++){
+		list_of_steps.push([1]);
+	}
+	while(i<num){
+		list_of_steps.push([0]);
+		i+=1;
+	}
+	
+	while(r > 1){
+		q = parseInt(r_prev / r);
+		r_cur = r;
+		r = r_prev - q * r;
+		
+		delNum = (q-1)*r_cur;
+		
+		for(i = 0; i < r_cur; i++){
+			for(let j = 0; j < q-1; j++){
+				list_of_steps[i].push(...list_of_steps[r_cur]);
+			}
+		}
+		if(delNum>0)list_of_steps.splice(-delNum);
+		for(i = 0; i < r; i++){
+			list_of_steps[i].push(...list_of_steps[r_cur]);
+		}
+		if(r>0) list_of_steps.splice(-r);		
+		r_prev = r_cur;
+	}
+	for(i = 1; i < list_of_steps.length;i++){
+		list_of_steps[0].push(...list_of_steps[i]);
+	}
+	// console.log(list_of_steps[0]);
+	return list_of_steps[0];
+
 }
