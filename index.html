@@ -7,18 +7,19 @@
 		<meta name= "viewport" content= "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 		<link rel= "icon" type = "image/png" href= "./img/1.png">
 		<link href= "./css/style.css" rel= "stylesheet">
-		<script src="http://unpkg.com/tone"></script>
+		<!-- <script src="http://unpkg.com/tone"></script> -->
+		<script type= "text/javascript" src= "./js/Tone.min.js"></script>
 		<script type= "text/javascript" src= "./js/jquery-2.0.0.min.js"></script>
 		<script type= "text/javascript" src= "./js/index.js"></script>
 		<script type= "text/javascript" src= "./js/midiwriter.js"></script>
 	</head>
 	<body>
-		<audio id= "audio1" style= "display: none;" src= "./audio/1-kick.wav"></audio>
+		<!-- <audio id= "audio1" style= "display: none;" src= "./audio/1-kick.wav"></audio>
 		<audio id= "audio2" style= "display: none" src= "./audio/2-snare.wav"></audio>
 		<audio id= "audio3" style= "display: none" src= "./audio/3-tom.wav"></audio>
 		<audio id= "audio4" style= "display: none" src= "./audio/4-ch.wav"></audio>
 		<audio id= "audio5" style= "display: none" src= "./audio/5-oh.wav"></audio>
-		<audio id= "audio6" style= "display: none" src= "./audio/6-perc.wav"></audio>
+		<audio id= "audio6" style= "display: none" src= "./audio/6-perc.wav"></audio> -->
 		<div id= "container">
 		
 		<label for = "file-input" type = "file" class = "finlbl">Click instrument name to load audio file:</label>
@@ -91,7 +92,7 @@
 				<div class= "move_right" name = "0">▶</div>
 			</div>
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<!-- <label class = ""> -->
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
@@ -165,7 +166,7 @@
 		</div>
 		
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
 			<label class = "verblbl"> 0% reverb</label>
@@ -237,7 +238,7 @@
 		</div>
 		
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
 			<label class = "verblbl"> 0% reverb</label>
@@ -307,7 +308,7 @@
 		</div>
 		
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
 			<label class = "verblbl"> 0% reverb</label>
@@ -378,7 +379,7 @@
 		</div>
 
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
 			<label class = "verblbl"> 0% reverb</label>
@@ -447,7 +448,7 @@
 			<div class= "move_right" name = "5">▶</div>
 		</div>
 		<div class="slidecontainer">
-			<input type="range" min="-80" max="6" value="0" step = "0.1" class="sliderVol" id="1">
+			<input type="range" min="-30" max="6" value="0" step = "0.1" class="sliderVol" id="1">
 			<label class = "Volumelbl" id = "1">0dB</label>
 			<input type="range" class = "verb" value="0" min="0" max="100" step="1">
 			<label class = "verblbl"> 0% reverb</label>
